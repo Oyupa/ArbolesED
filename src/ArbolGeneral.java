@@ -129,15 +129,20 @@ public class ArbolGeneral {
     public int calculGrado(NodoGeneral nodo) throws Exception {
         if (nodo == null) {
             throw new Exception("Error al calcular el grado ya que el nodo es nulo");
-        } else {
-            int grado = 0;
-            NodoGeneral aux = nodo.hijo1;
-            while (aux != null) {
-                grado++;
-                aux = aux.hijo2;
-            }
-            return grado;
         }
+        int contador = 0;
+        NodoGeneral hijo = nodo.hijo1;
+        while (hijo != null) {
+            contador++;
+            hijo = hijo.hijo2;
+        }
+        int maxGrado = contador;
+        hijo = nodo.hijo1;
+        while (hijo != null) {
+            maxGrado = Math.max(maxGrado, calculGrado(hijo));
+            hijo = hijo.hijo2;
+        }
+        return maxGrado;
     }
     // Método principal
     public static void main(String[] args) throws Exception {
